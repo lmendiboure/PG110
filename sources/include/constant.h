@@ -5,7 +5,7 @@
 #ifndef CONSTANT_H_
 #define CONSTANT_H_
 
-#define WINDOW_NAME "[PG110] Bombeirb 2017-2018"
+#define WINDOW_NAME "[PG110] Bombeirb 2018-2019"
 
 // Size (# of pixels) of a cell of the map
 #define SIZE_BLOC       40
@@ -23,9 +23,9 @@
 
 enum direction {
 	NORTH = 0,
-	SOUTH, // 1
-	WEST, // 2
-	EAST //3
+	EAST,  // 1
+	SOUTH, // 2
+	WEST   // 3
 };
 
 #endif /* CONSTANT */

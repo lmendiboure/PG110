@@ -13,17 +13,17 @@
 
 struct player {
 	int x, y;
-	enum direction current_direction;
-	int nb_bombs;
+	enum direction direction;
+	int bombs;
 };
 
-struct player* player_init(int bomb_number) {
+struct player* player_init(int bombs) {
 	struct player* player = malloc(sizeof(*player));
 	if (!player)
 		error("Memory error");
 
-	player->current_direction = SOUTH;
-	player->nb_bombs = bomb_number;
+	player->direction = NORTH;
+	player->bombs = bombs;
 
 	return player;
 }
@@ -53,22 +53,22 @@ int player_get_y(struct player* player) {
 
 void player_set_current_way(struct player* player, enum direction way) {
 	assert(player);
-	player->current_direction = way;
+	player->direction = way;
 }
 
 int player_get_nb_bomb(struct player* player) {
 	assert(player);
-	return player->nb_bombs;
+	return player->bombs;
 }
 
 void player_inc_nb_bomb(struct player* player) {
 	assert(player);
-	player->nb_bombs += 1;
+	player->bombs += 1;
 }
 
 void player_dec_nb_bomb(struct player* player) {
 	assert(player);
-	player->nb_bombs -= 1;
+	player->bombs -= 1;
 }
 
 static int player_move_aux(struct player* player, struct map* map, int x, int y) {
@@ -104,7 +104,7 @@ int player_move(struct player* player, struct map* map) {
 	int y = player->y;
 	int move = 0;
 
-	switch (player->current_direction) {
+	switch (player->direction) {
 	case NORTH:
 		if (player_move_aux(player, map, x, y - 1)) {
 			player->y--;
@@ -142,7 +142,7 @@ int player_move(struct player* player, struct map* map) {
 
 void player_display(struct player* player) {
 	assert(player);
-	window_display_image(sprite_get_player(player->current_direction),
+	window_display_image(sprite_get_player(player->direction),
 			player->x * SIZE_BLOC, player->y * SIZE_BLOC);
 }
 

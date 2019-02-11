@@ -12,8 +12,8 @@
 
 struct game {
 	struct map** maps;       // the game's map
-	short max_levels;        // nb maps of the game
-	short current_level;
+	short levels;        // nb maps of the game
+	short level;
 	struct player* player;
 };
 
@@ -24,10 +24,10 @@ game_new(void) {
 	struct game* game = malloc(sizeof(*game));
 	game->maps = malloc(sizeof(struct game));
 	game->maps[0] = map_get_static();
-	game->max_levels = 1;
-	game->current_level = 0;
+	game->levels = 1;
+	game->level = 0;
 
-	game->player = player_init(1);
+	game->player = player_init(3);
 	// Set default location of the player
 	player_set_position(game->player, 1, 0);
 
@@ -38,13 +38,13 @@ void game_free(struct game* game) {
 	assert(game);
 
 	player_free(game->player);
-	for (int i = 0; i < game->max_levels; i++)
+	for (int i = 0; i < game->levels; i++)
 		map_free(game->maps[i]);
 }
 
 struct map* game_get_current_map(struct game* game) {
 	assert(game);
-	return game->maps[game->current_level];
+	return game->maps[game->level];
 }
 
 
@@ -68,7 +68,7 @@ void game_banner_display(struct game* game) {
 	window_display_image(sprite_get_banner_life(), x, y);
 
 	x = white_bloc + SIZE_BLOC;
-	window_display_image(sprite_get_number(2), x, y);
+	window_display_image(sprite_get_number(7), x, y);
 
 	x = 2 * white_bloc + 2 * SIZE_BLOC;
 	window_display_image(sprite_get_banner_bomb(), x, y);
@@ -81,14 +81,13 @@ void game_banner_display(struct game* game) {
 	window_display_image(sprite_get_banner_range(), x, y);
 
 	x = 3 * white_bloc + 5 * SIZE_BLOC;
-	window_display_image(sprite_get_number(1), x, y);
+	window_display_image(sprite_get_number(3), x, y);
 }
 
 void game_display(struct game* game) {
 	assert(game);
 
 	window_clear();
-
 	game_banner_display(game);
 	map_display(game_get_current_map(game));
 	player_display(game->player);
@@ -100,6 +99,7 @@ static short input_keyboard(struct game* game) {
 	SDL_Event event;
 	struct player* player = game_get_player(game);
 	struct map* map = game_get_current_map(game);
+
 
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {

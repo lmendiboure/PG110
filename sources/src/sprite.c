@@ -23,16 +23,16 @@
 #define BANNER_LIFE		"sprite/banner_life.png"
 #define BANNER_BOMB		"sprite/bomb3.png"
 #define BANNER_RANGE		"sprite/banner_range.png"
-#define BANNER_0			"sprite/banner_0.jpg"
-#define BANNER_1			"sprite/banner_1.jpg"
-#define BANNER_2			"sprite/banner_2.jpg"
-#define BANNER_3			"sprite/banner_3.jpg"
-#define BANNER_4			"sprite/banner_4.jpg"
-#define BANNER_5			"sprite/banner_5.jpg"
-#define BANNER_6			"sprite/banner_6.jpg"
-#define BANNER_7			"sprite/banner_7.jpg"
-#define BANNER_8			"sprite/banner_8.jpg"
-#define BANNER_9			"sprite/banner_9.jpg"
+#define DIGIT_0			"sprite/banner_0.jpg"
+#define DIGIT_1			"sprite/banner_1.jpg"
+#define DIGIT_2			"sprite/banner_2.jpg"
+#define DIGIT_3			"sprite/banner_3.jpg"
+#define DIGIT_4			"sprite/banner_4.jpg"
+#define DIGIT_5			"sprite/banner_5.jpg"
+#define DIGIT_6			"sprite/banner_6.jpg"
+#define DIGIT_7			"sprite/banner_7.jpg"
+#define DIGIT_8			"sprite/banner_8.jpg"
+#define DIGIT_9			"sprite/banner_9.jpg"
 
 // Sprites of Bombs
 #define BOMB_TTL1       "sprite/bomb1.png"
@@ -77,22 +77,22 @@ SDL_Surface* player_img[4];
 
 static void banner_load() {
 	// numbers imgs
-	numbers[0] = load_image(BANNER_0);
-	numbers[1] = load_image(BANNER_1);
-	numbers[2] = load_image(BANNER_2);
-	numbers[3] = load_image(BANNER_3);
-	numbers[4] = load_image(BANNER_4);
-	numbers[5] = load_image(BANNER_5);
-	numbers[6] = load_image(BANNER_6);
-	numbers[7] = load_image(BANNER_7);
-	numbers[8] = load_image(BANNER_8);
-	numbers[9] = load_image(BANNER_9);
+	numbers[0] = image_load(DIGIT_0);
+	numbers[1] = image_load(DIGIT_1);
+	numbers[2] = image_load(DIGIT_2);
+	numbers[3] = image_load(DIGIT_3);
+	numbers[4] = image_load(DIGIT_4);
+	numbers[5] = image_load(DIGIT_5);
+	numbers[6] = image_load(DIGIT_6);
+	numbers[7] = image_load(DIGIT_7);
+	numbers[8] = image_load(DIGIT_8);
+	numbers[9] = image_load(DIGIT_9);
 
 	// other banner sprites
-	banner_life = load_image(BANNER_LIFE);
-	banner_bomb = load_image(BANNER_BOMB);
-	banner_range = load_image(BANNER_RANGE);
-	banner_line = load_image(BANNER_LINE);
+	banner_life = image_load(BANNER_LIFE);
+	banner_bomb = image_load(BANNER_BOMB);
+	banner_range = image_load(BANNER_RANGE);
+	banner_line = image_load(BANNER_LINE);
 }
 
 static void banner_unload() {
@@ -110,12 +110,12 @@ static void banner_unload() {
 
 static void map_load() {
 	// Sprite loading
-	tree = load_image(MAP_TREE);
-	box = load_image(MAP_CASE);
-	key = load_image(MAP_KEY);
-	stone = load_image(MAP_STONE);
-	door_opened = load_image(MAP_DOOR_OPENED);
-	door_closed = load_image(MAP_DOOR_CLOSED);
+	tree = image_load(MAP_TREE);
+	box = image_load(MAP_CASE);
+	key = image_load(MAP_KEY);
+	stone = image_load(MAP_STONE);
+	door_opened = image_load(MAP_DOOR_OPENED);
+	door_closed = image_load(MAP_DOOR_CLOSED);
 }
 
 static void map_unload() {
@@ -130,10 +130,10 @@ static void map_unload() {
 
 static void bonus_load() {
 	bonus[0] = NULL;
-	bonus[BONUS_BOMB_RANGE_INC] = load_image(IMG_BONUS_BOMB_RANGE_INC);
-	bonus[BONUS_BOMB_RANGE_DEC] = load_image(IMG_BONUS_BOMB_RANGE_DEC);
-	bonus[BONUS_BOMB_NB_INC] = load_image(IMG_BONUS_BOMB_NB_INC);
-	bonus[BONUS_BOMB_NB_DEC] = load_image(IMG_BONUS_BOMB_NB_DEC);
+	bonus[BONUS_BOMB_RANGE_INC] = image_load(IMG_BONUS_BOMB_RANGE_INC);
+	bonus[BONUS_BOMB_RANGE_DEC] = image_load(IMG_BONUS_BOMB_RANGE_DEC);
+	bonus[BONUS_BOMB_NB_INC] = image_load(IMG_BONUS_BOMB_NB_INC);
+	bonus[BONUS_BOMB_NB_DEC] = image_load(IMG_BONUS_BOMB_NB_DEC);
 }
 
 static void bonus_unload() {
@@ -143,10 +143,10 @@ static void bonus_unload() {
 }
 
 static void player_load() {
-	player_img[WEST] = load_image(PLAYER_LEFT);
-	player_img[EAST] = load_image(PLAYER_RIGHT);
-	player_img[NORTH] = load_image(PLAYER_UP);
-	player_img[SOUTH] = load_image(PLAYER_DOWN);
+	player_img[WEST] = image_load(PLAYER_LEFT);
+	player_img[EAST] = image_load(PLAYER_RIGHT);
+	player_img[NORTH] = image_load(PLAYER_UP);
+	player_img[SOUTH] = image_load(PLAYER_DOWN);
 }
 
 static void player_unload() {

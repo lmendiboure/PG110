@@ -14,7 +14,7 @@ void error(const char *s, ...) {
 	exit(EXIT_FAILURE);
 }
 
-SDL_Surface* load_image(const char* filename) {
+SDL_Surface* image_load(const char* filename) {
 	SDL_Surface* img = IMG_Load(filename);
 	if (!img)
 		error("IMG_Load: %s\n", IMG_GetError());
