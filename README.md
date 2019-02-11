@@ -49,7 +49,7 @@ Une carte de taille `Largeur x Hauteur` est représentée sous la forme
 d’un tableau à une dimension tel que la cellule de coordonnées `(i,j)`
 sur la carte corresponde à l’élément d’indice `(i + j*Hauteur)` dans le
 tableau. La valeur d’un élément du tableau représente le type de la
-cellule correspondante. Cette valeur est codé par un entier sur 8 bits
+cellule correspondante. Cette valeur est codée par un entier sur 8 bits
 non signé `(unsigned char)`. Le codage de chaque cellule est définit de la
 manière suivante:
 
@@ -87,7 +87,7 @@ cellule ou des informations complémentaires.
 
 #### Décor
 
-Les bits b3 à b2 codent le type de décor: **0** pour une pierre, **1** pour un arbre et **2** pour la princesse. Les bits b1 à b0 sont inutilisés.
+Les bits b3 à b0 codent le type de décor: **1** pour une pierre, **2** pour un arbre et **4** pour la princesse. Le bit b3 est inutilisé.
 
 #### Caisse
 
@@ -111,7 +111,7 @@ franchissant la porte (8 niveaux maximum possibles).
 Travail à fournir
 =================
 
-Il vous est demandé de compléter l’ébauche de jeu fournie, de produire un court rapport d’au plus deux pages, ainsi que de faire une démonstration de votre implantation des fonctionnalités demandées. Le rapport devra contenir, pour chaque fonctionnalité ajoutée, une description de la solution adoptée. Il devra être remis au format `PDF`.
+Il vous est demandé de compléter l’ébauche de jeu fournie, de produire un court rapport d’au plus deux pages, ainsi que de faire une démonstration de votre implantation des fonctionnalités demandées. Le rapport devra contenir, pour chaque fonctionnalité ajoutée, une description de la solution adoptée. Il devra être remis au format `PDF` dans un fichier `rapport.pdf` à la racine de votre arborescence.
 Votre code devra être clairement commenté et indenté. Les fonctions seront nommées en anglais. Les fonctionnalités demandées constituent un cadre obligatoire à partir duquel vous êtes libres d’agrémenter le jeu comme vous l’entendez. Nous décrivons ci-après les fonctionnalités attendues du jeu.
 
 
@@ -131,7 +131,7 @@ suivantes :
     pouvoir les créer et les modifier avec un simple éditeur de texte ;
 -   Le nom de fichier d’une carte est de la forme `map_N` ou `N` est le
     numéro du niveau;
--   La première ligne du fichier, de la forme `width x height`,
+-   La première ligne du fichier, de la forme `width:height`,
     représente la largeur et la hauteur de la carte (valeurs décimales);
 -   La case en haut à gauche de la carte correspond aux coordonnées
     `(0,0)` ;
@@ -146,8 +146,8 @@ suivantes :
 Comme nous n’utilisons que 3 bits pour coder les différentes carte du jeu, il y a un maximum de 8 niveaux possibles. Le premier niveau est toujours le niveau **0**. L’exemple ci-dessous illustre le codage d’une carte de 3 par 2. Le symbole `_` représente un espace.
 
 <pre>
-3 x 2
-2 _ 0 _ _ 1 7
+3:2
+2 _ 0 _ _ 1 7 _
 0 _ 5 9 _ 0 _
 </pre>
 
@@ -157,7 +157,7 @@ Comme nous n’utilisons que 3 bits pour coder les différentes carte du jeu, il
 d’un fichier. Pour représenter une partie, nous utiliserons un fichier supplémentaire, lui aussi au format texte, dans le répertoire data. Ce fichier aura le format suivant :
 
 - La première ligne contient le numéro de niveaux
-- La seconde ligne indique la position du joueur sous la forme `level : x, y` où *level* est le numéro du monde, x* et *y* sont les coordonnées sur la carte correspondante.
+- La seconde ligne indique la position du joueur sous la forme `level : x, y` où *level* est le numéro du monde, *x* et *y* sont les coordonnées sur la carte correspondante.
 - La troisième ligne indique le préfixe des fichiers cartes correspondants dans le répertoire *map*. L'exemple ci-dessous représente une partie avec 3 mondes dont chaque carte est de la forme `easy_N`. Le joueur se trouve sur la case en haut à gauche du premier niveau. Au chargement de la partie, il faut afficher le niveau sur lequel se trouve le joueur.
 
 ```
@@ -199,6 +199,8 @@ perd une vie. Les explosions n’ont aucun effet sur les portes et les
 clefs. Lorsque une bombe explose, une nouvelle bombe est ajoutée à
 l’inventaire du joueur.
 
+Si le joueur pose une bombe et change ensuite de niveau en franchissant une porte, la bombe doit tout de même exploser au bout de 4 secondes. Les éléments de décors détruits sur un niveau doivent le rester pendant toute la durée de la partie.
+
 #### Exemple d’explosions d’une bombe de portée 1 sans obstacle
 ![explosion](img/explosion.png)
 
@@ -228,7 +230,7 @@ l’explosion d’une caisse. Il en existe 5 :
 Gestion des vies
 ----------------
 
-Le joueur dispose de 2 vies au démarrage du jeu. Il peut en perdre s’il
+Le joueur dispose de 3 vies au démarrage du jeu. Il peut en perdre s’il
 se trouve sur une case à portée de l’explosion d’une bombe. Si le joueur
 n’a plus de vie, la partie se termine.
 
@@ -238,19 +240,20 @@ Gestion des monstres
 Les monstres peuvent être présents dès le chargement de la carte ou
 apparaitre à l’explosion d’une caisse. Leurs déplacements sont
 entièrement aléatoires. Une collision avec un monstre déclenche la perte
-d’une vie. Le joueur bénéficie alors d’une temporisation pendant lequel
+d’une vie. Le joueur bénéficie alors d’une temporisation d'une seconde pendant laquelle
 il est invulnérable.
 
 Commencez par ajouter un seul monstre à la fois, puis augmenter le
 nombre de monstres. La vitesse de déplacement des monstres doit être
 faible dans les premiers niveaux et augmenter plus on se rapproche de la
-princesse. Ceux qui le souhaite peuvent ajouter un module d’intelligence
-artificielle pour que les monstres se dirigent vers le joueur et non
-plus aléatoirement.
+princesse. 
 
 Les monstres ne peuvent pas ramasser les bonus qui se trouvent sur le
 sol. Les monstres ont peur des portes et ne peuvent s’approcher à moins
 de 1 case d’une porte.
+
+Ajouter un module d’intelligence artificielle pour que les monstres se dirigent vers le joueur et non
+plus de manière aléatoire.
 
 Fin de partie
 -------------
@@ -263,7 +266,7 @@ Pause
 -----
 
 La touche `[P]` met le jeu en pause et permet de reprendre la partie. Si
-une ou plusieurs bombes ont été posées et n’ont pas encore explosé lors
+une ou plusieurs bombes ont été posées et n’ont pas encore explosées lors
 de la pause, le temps avant leur explosion doit être le même lors de la
 reprise du jeu.
 
