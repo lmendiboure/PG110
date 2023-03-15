@@ -5,7 +5,9 @@ Réalisation d'un jeu vidéo 2D : **bombeirb**.
 
 ## Organisation
 
-Le travail est à réaliser en équipe de un à deux étudiants appartenant au même groupe (A, B ou C). Vous devez au préalable former les équipes et les nommer de la forme *GA-2018-T1* pour l'equipe *1* du groupe *A*. 
+Le travail est à réaliser en équipe de un à deux étudiants appartenant au même groupe (A, B ou C). 
+
+Vous devez au préalable former les équipes et les nommer de la forme *GA-2023-1* pour l'equipe *1* du groupe *A*. 
 
 Nous utilisons la plateforme GitHub pour héberger vos projets. Pour ce faire, vous devez créer un compte utilisateur sur GitHub si vous n'en possédez pas encore. Cliquer ensuite sur le lien [suivant](https://classroom.github.com/g/IRNqYbLC) pour créer votre équipe. Utiliser la convention de nommage précédente. 
 
